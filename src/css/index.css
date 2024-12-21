@@ -18,14 +18,13 @@ body {
     background-color: hwb(271 2% 53%);
     padding: 1rem;
 }
-:where(.config-container, .quiz-container) {
+:where(.config-container, .quiz-container, .result-container) {
     display: none;
     border-radius: 0.5rem;
     box-shadow: 0 10px 25px hwb(0 17% 83% / 0.226);
     background-color: hwb(0 99% 0%);
 }
 .config-container {
-    display: block;
     width: 415px;
     padding: 1.5rem;
     text-align: center;
@@ -81,7 +80,8 @@ body {
 }
 
 .config-container .star-quizt-button,
-.next-question-button {
+.next-question-button,
+.try-again-button {
     color: hwb(0 99% 0%);
     border: none;
     background-color: hwb(271 2% 53%);

@@ -1,0 +1,23 @@
+.result-container {
+    text-align: center;
+    padding: 40px;
+    width: 410px;
+
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+.resul-title {
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+.result-container .result-img {
+    width: 100px;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+}
+.result-mesaage {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}

@@ -31,6 +31,13 @@ let timer: NodeJS.Timeout;
 
 const questionIndexHistoy: number[] = [];
 
+//* clean and reset the timer
+const resetTimer = () => {
+    clearInterval(timer);
+    currentTime = QUIZ_TIME_LIMIT;
+    $timerDisplay.textContent = `${currentTime}s`;
+};
+
 // initialize and start the timer for the current question
 const starTime = (): void => {
     timer = setInterval(() => {
@@ -39,6 +46,12 @@ const starTime = (): void => {
 
         if (currentTime <= 0) {
             clearInterval(timer);
+            highligthCorrectAnswer();
+            $nextQuestion.style.visibility = 'visible';
+
+            $answerOption
+                .querySelectorAll<HTMLLIElement>('.answer-option')
+                .forEach(Option => (Option.style.pointerEvents = 'none'));
         }
     }, 1000);
 };
@@ -74,7 +87,7 @@ const getRandomQuestion = (): getRandomQuestionType => {
 };
 
 //* Highiligth the correct answer option
-const highligthCorrectAnswer = () => {
+const highligthCorrectAnswer = (): void => {
     const correcrOption =
         $answerOption.querySelectorAll<HTMLLIElement>('.answer-option')[
             currentQuestion?.correctAnswer!!
@@ -118,6 +131,7 @@ const renderQuestion = () => {
 
     if (!currentQuestion) return;
 
+    resetTimer();
     starTime();
 
     // * Update UI

@@ -4,16 +4,23 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Vite + TS</title>
+        <!-- google Icons  -->
+        <link
+            rel="stylesheet"
+            \
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
     </head>
     <body>
         <div id="app">
-           
             <div class="config-container">
                 <h2 class="config-title">Quiz Configuration</h2>
                 <div class="config-option">
                     <h4 class="option-title">Selec Category</h4>
                     <div class="category-options">
-                        <button class="category-option active">Programing</button>
+                        <button class="category-option active">
+                            Programing
+                        </button>
                         <button class="category-option">Geogpraphy</button>
                         <button class="category-option">Mathematics</button>
                         <button class="category-option">Entertaiment</button>
@@ -33,6 +40,58 @@
                 <button class="star-quizt-button">Star Quiz</button>
             </div>
 
+            <section class="quiz-container">
+                <header class="quiz-header">
+                    <h2 class="quiz-title">Quiz Aplication</h2>
+
+                    <div class="quiz-timer">
+                        <p class="timer-duration">15s</p>
+                        <span class="material-symbols-outlined"> timer </span>
+                    </div>
+                </header>
+
+                <div class="quiz-content">
+                    <h1 class="queztion-text">
+                        In javascript, how do you create a fucntion. ?
+                    </h1>
+                    <ul class="answer-options">
+                        <li class="answer-option">
+                            <p>Crte funtion MyFunction ( ) {}</p>
+                        </li>
+
+                        <li class="answer-option">
+                            <p>Crte funtion MyFunction ( ) {}</p>
+                        </li>
+
+                        <li class="answer-option correct">
+                            <p>funtion MyFunction ( ) {}</p>
+                            <span class="material-symbols-outlined">
+                                task_alt
+                            </span>
+                        </li>
+
+                        <li class="answer-option incorrect">
+                            <p>func MyFunction ( ) {}</p>
+                            <span class="material-symbols-outlined">
+                                cancel
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <footer class="quiz-footer">
+                    <p class="question-status">
+                        <b> 2 </b> of <b>10</b> Question
+                    </p>
+
+                    <button class="next-question-button">
+                        Next
+                        <span class="material-symbols-outlined">
+                            chevron_right
+                        </span>
+                    </button>
+                </footer>
+            </section>
         </div>
         <script type="module" src="/src/index.ts"></script>
     </body>

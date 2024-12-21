@@ -1,0 +1,96 @@
+.quiz-container {
+    width: 480px;
+}
+.quiz-container .quiz-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    justify-content: space-between;
+    box-shadow: 0 1px 10px hwb(0 0% 100% / 0.137);
+}
+.queztion-text {
+    width: 480px;
+    font-weight: 600;
+}
+.quiz-header .quiz-timer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: row-reverse;
+    width: 70px;
+    padding: 7px 9px;
+    border-radius: 0.5rem;
+    background-color: hwb(245 19% 76%);
+    color: hwb(0 100% 0%);
+    font-weight: 300;
+
+    & span {
+        font-size: 1.3rem;
+    }
+}
+.quiz-container .quiz-content {
+    padding: 20px 25px 25px;
+}
+.quiz-container .answer-options {
+    list-style: none;
+    margin-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.quiz-container .answer-option {
+    padding: 13px 16px;
+    background-color: hwb(249 95% 0%);
+    border: 1px solid hwb(246 67% 0%);
+    border-radius: 0.5rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: 300ms ease;
+
+    display: flex;
+    justify-content: space-between;
+
+    &:hover {
+        background-color: hwb(248 84% 1%);
+    }
+
+    &.correct {
+        border-color: hwb(134 72% 12%);
+        background-color: hwb(134 83% 7%);
+        color: hwb(134 8% 66%);
+    }
+
+    &.incorrect {
+        border-color: hwb(0 72% 12%);
+        background-color: hwb(0 83% 7%);
+        color: hwb(0 8% 66%);
+    }
+    & span {
+        display: block;
+        flex-shrink: 0;
+        margin: -4px -3px -4px 12px;
+    }
+}
+.quiz-container .quiz-footer {
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid hwb(0 78% 22%);
+
+    & .question-status {
+        font-weight: 500;
+    }
+    & .question-status b {
+        font-weight: 600;
+    }
+}
+
+.quiz-footer .next-question-button {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 9px 17px;
+}

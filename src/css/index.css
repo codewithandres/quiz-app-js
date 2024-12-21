@@ -18,13 +18,17 @@ body {
     background-color: hwb(271 2% 53%);
     padding: 1rem;
 }
-.config-container {
+:where(.config-container, .quiz-container) {
+    display: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px hwb(0 17% 83% / 0.226);
     background-color: hwb(0 99% 0%);
+}
+.config-container {
+    display: block;
     width: 415px;
     padding: 1.5rem;
     text-align: center;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 25px hwb(0 17% 83% / 0.226);
 }
 .config-container .config-title {
     font-size: 1.31rem;
@@ -76,19 +80,23 @@ body {
     }
 }
 
-.config-container .star-quizt-button {
+.config-container .star-quizt-button,
+.next-question-button {
     color: hwb(0 99% 0%);
     border: none;
     background-color: hwb(271 2% 53%);
     cursor: pointer;
-    margin-top: 30px;
     padding: 13px 25px;
     border-radius: 0.5rem;
     font-size: 0.9rem;
     font-weight: 500;
     transition: background 300ms ease;
-    
+
     &:hover {
         background-color: hwb(271 3% 74%);
     }
+}
+
+.config-container .star-quizt-button {
+    margin-top: 30px;
 }

@@ -11,6 +11,7 @@
 }
 .queztion-text {
     width: 480px;
+    font-size: 1.3rem;
     font-weight: 400;
 }
 .quiz-header .quiz-timer {
@@ -91,6 +92,7 @@
 
 .quiz-footer .next-question-button {
     display: inline-flex;
+    visibility: hidden;
     gap: 0.5rem;
     align-items: center;
     padding: 9px 17px;

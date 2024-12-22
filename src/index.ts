@@ -18,21 +18,43 @@ const $timerDisplay = document.querySelector(
     '.timer-duration'
 ) as HTMLParagraphElement;
 
+const $resulContainer = document.querySelector(
+    '.result-container'
+) as HTMLElement;
+
+const $quizContainer = document.querySelector('.quiz-container') as HTMLElement;
+
+const $configContainer = document.querySelector(
+    '.config-container'
+) as HTMLElement;
+
 type getRandomQuestionType = Question | void;
 
 // quiz state variables
-const QUIZ_TIME_LIMIT = 15;
+const QUIZ_TIME_LIMIT: number = 15;
 
 let quizCategory: string = 'programming';
 let currentQuestion: getRandomQuestionType;
 let numberOfQuestions: number = 10;
 let currentTime = QUIZ_TIME_LIMIT;
 let timer: NodeJS.Timeout;
+let correctAnswerCount: number = 0;
 
 const questionIndexHistoy: number[] = [];
 
-//* clean and reset the timer
-const resetTimer = () => {
+// Display the quiz result and hide the quiz container
+const showQuizResult = (): void => {
+    $quizContainer.style.display = 'none';
+    $resulContainer.style.display = 'block';
+
+    const resultText: string = ` You answer <b>${correctAnswerCount}</b> out of <b>${numberOfQuestions}</b> question correctly great effort!`;
+
+    (document.querySelector('.result-mesaage') as HTMLDivElement).innerHTML =
+        resultText;
+};
+
+//*clean and reset the timer
+const resetTimer = (): void => {
     clearInterval(timer);
     currentTime = QUIZ_TIME_LIMIT;
     $timerDisplay.textContent = `${currentTime}s`;
@@ -57,7 +79,7 @@ const starTime = (): void => {
 };
 
 const getRandomQuestion = (): getRandomQuestionType => {
-    //* Fetch add ramdom question from based on the selectd category
+    //Fetch add ramdom question from based on the selectd category
     const categoryQuestions =
         questions.find(
             Category =>
@@ -65,20 +87,20 @@ const getRandomQuestion = (): getRandomQuestionType => {
                 quizCategory.toLocaleLowerCase()
         )?.questions ?? [];
 
-    //* show the result if all question have been used
+    // show the result if all question have been used
     if (
         questionIndexHistoy.length >=
         Math.min(categoryQuestions.length, numberOfQuestions)
     ) {
-        return console.log('Quiz Completed');
+        return showQuizResult();
     }
 
-    //* filter out already asked question and choose a random one
-    const aviableQuestions = categoryQuestions.filter(
+    // filter out already asked question and choose a random one
+    const aviableQuestions: Question[] = categoryQuestions.filter(
         (_, index) => !questionIndexHistoy.includes(index)
     );
 
-    const randomQuestion =
+    const randomQuestion: Question =
         aviableQuestions[Math.floor(Math.random() * aviableQuestions.length)];
 
     questionIndexHistoy.push(categoryQuestions.indexOf(randomQuestion));
@@ -86,7 +108,7 @@ const getRandomQuestion = (): getRandomQuestionType => {
     return randomQuestion;
 };
 
-//* Highiligth the correct answer option
+// Highiligth the correct answer option
 const highligthCorrectAnswer = (): void => {
     const correcrOption =
         $answerOption.querySelectorAll<HTMLLIElement>('.answer-option')[
@@ -102,14 +124,14 @@ const highligthCorrectAnswer = (): void => {
 };
 
 // * Handle the use's answer selection
-const handelAnswer = ($li: HTMLLIElement, answerIndex: number) => {
+const handelAnswer = ($li: HTMLLIElement, answerIndex: number): void => {
     clearInterval(timer);
 
     const isCorrent = currentQuestion?.correctAnswer === answerIndex;
 
     $li.classList.add(isCorrent ? 'correct' : 'incorrect');
 
-    !isCorrent && highligthCorrectAnswer();
+    !isCorrent ? highligthCorrectAnswer() : correctAnswerCount++;
 
     const $iconHtml = `<span class="material-symbols-outlined">
               ${isCorrent ? 'task_alt' : 'cancel'}
@@ -118,7 +140,7 @@ const handelAnswer = ($li: HTMLLIElement, answerIndex: number) => {
     // inser icon based to correctness
     $li.insertAdjacentHTML('beforeend', $iconHtml);
 
-    //*  Disable all answer option after one option is selected
+    //  Disable all answer option after one option is selected
     $answerOption
         .querySelectorAll<HTMLLIElement>('.answer-option')
         .forEach(Option => (Option.style.pointerEvents = 'none'));
@@ -126,7 +148,7 @@ const handelAnswer = ($li: HTMLLIElement, answerIndex: number) => {
     $nextQuestion.style.visibility = 'visible';
 };
 
-const renderQuestion = () => {
+const renderQuestion = (): void => {
     currentQuestion = getRandomQuestion();
 
     if (!currentQuestion) return;
@@ -134,7 +156,7 @@ const renderQuestion = () => {
     resetTimer();
     starTime();
 
-    // * Update UI
+    // Update UI
     $answerOption.innerHTML = '';
     $nextQuestion.style.visibility = 'hidden';
     $questionStatus.innerHTML = ` <b> ${questionIndexHistoy.length} </b> of <b> ${numberOfQuestions} </b> Question`;
@@ -156,4 +178,30 @@ const renderQuestion = () => {
 
 renderQuestion();
 
+const starQuiz = (): void => {
+    $configContainer.style.display = 'none';
+    $quizContainer.style.display = 'block';
+
+    renderQuestion();
+};
+
+// Reset the quiz an return to the configuration container
+const restQuiz = (): void => {
+    resetTimer();
+    correctAnswerCount = 0;
+
+    questionIndexHistoy.length = 0;
+
+    $configContainer.style.display = 'block';
+    $resulContainer.style.display = 'none';
+};
+
 $nextQuestion.addEventListener('click', renderQuestion);
+
+(
+    document.querySelector('.try-again-button') as HTMLButtonElement
+).addEventListener('click', restQuiz);
+
+(
+    document.querySelector('.star-quizt-button') as HTMLButtonElement
+).addEventListener('click', starQuiz);

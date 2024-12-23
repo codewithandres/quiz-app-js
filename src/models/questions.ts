@@ -1,8 +1,6 @@
 // Array of questions grouped by category (25 questions each)
 
-import { Category } from '../types/quiz.model';
-
-export const questions: Category[] = [
+export const questions = [
     {
         category: 'programming',
         questions: [
@@ -245,7 +243,6 @@ export const questions: Category[] = [
             },
         ],
     },
-
     {
         category: 'geography',
         questions: [
@@ -372,6 +369,238 @@ export const questions: Category[] = [
                 question: 'Which is the most populous city in the world?',
                 options: ['Tokyo', 'Shanghai', 'New York City', 'Delhi'],
                 correctAnswer: 0,
+            },
+        ],
+    },
+    {
+        category: 'entertainment',
+        questions: [
+            {
+                question:
+                    'Which actor played Iron Man in the Marvel Cinematic Universe?',
+                options: [
+                    'Chris Evans',
+                    'Robert Downey Jr.',
+                    'Chris Hemsworth',
+                    'Mark Ruffalo',
+                ],
+                correctAnswer: 1,
+            },
+            {
+                question: 'What is the highest-grossing film of all time?',
+                options: [
+                    'Avengers: Endgame',
+                    'Avatar',
+                    'Titanic',
+                    'Star Wars: The Force Awakens',
+                ],
+                correctAnswer: 1,
+            },
+            {
+                question: 'Which band released the album "Abbey Road"?',
+                options: [
+                    'The Rolling Stones',
+                    'The Who',
+                    'The Beatles',
+                    'Led Zeppelin',
+                ],
+                correctAnswer: 2,
+            },
+            {
+                question: 'Who won the Academy Award for Best Actor in 2020?',
+                options: [
+                    'Joaquin Phoenix',
+                    'Leonardo DiCaprio',
+                    'Adam Driver',
+                    'Antonio Banderas',
+                ],
+                correctAnswer: 0,
+            },
+            {
+                question:
+                    'Which TV series features dragons and is based on books by George R.R. Martin?',
+                options: [
+                    'The Witcher',
+                    'Lord of the Rings',
+                    'Game of Thrones',
+                    'The Last Kingdom',
+                ],
+                correctAnswer: 2,
+            },
+            {
+                question: 'Who is known as the "King of Pop"?',
+                options: [
+                    'Elvis Presley',
+                    'Prince',
+                    'Michael Jackson',
+                    'David Bowie',
+                ],
+                correctAnswer: 2,
+            },
+            {
+                question: 'Which streaming service produced "Stranger Things"?',
+                options: ['Amazon Prime', 'Hulu', 'Disney+', 'Netflix'],
+                correctAnswer: 3,
+            },
+            {
+                question: 'Who directed the film "Inception"?',
+                options: [
+                    'Christopher Nolan',
+                    'Steven Spielberg',
+                    'Martin Scorsese',
+                    'Quentin Tarantino',
+                ],
+                correctAnswer: 0,
+            },
+            {
+                question: 'Which artist painted the Mona Lisa?',
+                options: [
+                    'Vincent van Gogh',
+                    'Pablo Picasso',
+                    'Leonardo da Vinci',
+                    'Michelangelo',
+                ],
+                correctAnswer: 2,
+            },
+            {
+                question: "What was Disney's first full-length animated film?",
+                options: [
+                    'Pinocchio',
+                    'Snow White and the Seven Dwarfs',
+                    'Bambi',
+                    'Fantasia',
+                ],
+                correctAnswer: 1,
+            },
+            {
+                question: 'Which band performed "Bohemian Rhapsody"?',
+                options: [
+                    'The Rolling Stones',
+                    'Led Zeppelin',
+                    'Pink Floyd',
+                    'Queen',
+                ],
+                correctAnswer: 3,
+            },
+            {
+                question: 'Who played Harry Potter in the film series?',
+                options: [
+                    'Daniel Radcliffe',
+                    'Rupert Grint',
+                    'Tom Felton',
+                    'Matthew Lewis',
+                ],
+                correctAnswer: 0,
+            },
+            {
+                question:
+                    'Which video game franchise features a character named Mario?',
+                options: ['Sonic', 'Nintendo', 'PlayStation', 'Xbox'],
+                correctAnswer: 1,
+            },
+            {
+                question: 'Who is the creator of Star Wars?',
+                options: [
+                    'Steven Spielberg',
+                    'J.J. Abrams',
+                    'George Lucas',
+                    'James Cameron',
+                ],
+                correctAnswer: 2,
+            },
+            {
+                question:
+                    'Which actress won an Oscar for her role in "La La Land"?',
+                options: [
+                    'Emma Watson',
+                    'Emma Stone',
+                    'Jennifer Lawrence',
+                    'Natalie Portman',
+                ],
+                correctAnswer: 1,
+            },
+        ],
+    },
+    {
+        category: 'mathematics',
+        questions: [
+            {
+                question: 'What is the value of π (pi) to two decimal places?',
+                options: ['3.14', '3.16', '3.12', '3.18'],
+                correctAnswer: 0,
+            },
+            {
+                question: 'Which of these numbers is a prime number?',
+                options: ['15', '21', '23', '25'],
+                correctAnswer: 2,
+            },
+            {
+                question: 'What is the square root of 144?',
+                options: ['10', '11', '12', '13'],
+                correctAnswer: 2,
+            },
+            {
+                question: 'What is 7 x 8?',
+                options: ['54', '56', '58', '60'],
+                correctAnswer: 1,
+            },
+            {
+                question: 'Which number is not a factor of 24?',
+                options: ['2', '3', '5', '8'],
+                correctAnswer: 2,
+            },
+            {
+                question:
+                    'What is the next number in the sequence: 2, 4, 8, 16, ...?',
+                options: ['24', '30', '32', '36'],
+                correctAnswer: 2,
+            },
+            {
+                question: 'What is the sum of angles in a triangle?',
+                options: ['90°', '180°', '270°', '360°'],
+                correctAnswer: 1,
+            },
+            {
+                question: 'What is 25% of 80?',
+                options: ['15', '20', '25', '30'],
+                correctAnswer: 1,
+            },
+            {
+                question: 'Which of these fractions is the largest?',
+                options: ['1/2', '2/5', '3/4', '1/3'],
+                correctAnswer: 2,
+            },
+            {
+                question:
+                    'What is the area of a square with sides of length 5?',
+                options: ['20', '25', '30', '35'],
+                correctAnswer: 1,
+            },
+            {
+                question: 'What is 3 squared?',
+                options: ['6', '8', '9', '12'],
+                correctAnswer: 2,
+            },
+            {
+                question: 'What is the least common multiple of 4 and 6?',
+                options: ['8', '10', '12', '14'],
+                correctAnswer: 2,
+            },
+            {
+                question: 'What is the value of x in the equation 2x + 4 = 10?',
+                options: ['2', '3', '4', '5'],
+                correctAnswer: 1,
+            },
+            {
+                question: 'How many sides does a hexagon have?',
+                options: ['5', '6', '7', '8'],
+                correctAnswer: 1,
+            },
+            {
+                question:
+                    'What is the perimeter of a rectangle with length 5 and width 3?',
+                options: ['12', '14', '16', '18'],
+                correctAnswer: 2,
             },
         ],
     },

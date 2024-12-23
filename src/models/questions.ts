@@ -1,6 +1,8 @@
 // Array of questions grouped by category (25 questions each)
 
-export const questions = [
+import type { Category } from '../interface';
+
+export const questions: Category[] = [
     {
         category: 'programming',
         questions: [

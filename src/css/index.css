@@ -85,7 +85,7 @@ body {
 .try-again-button {
     color: hwb(0 99% 0%);
     border: none;
-    background-color: hwb(271 2% 53%);
+    background-color: hwb(224 24% 21%);
     cursor: pointer;
     padding: 13px 25px;
     border-radius: 0.5rem;
@@ -94,7 +94,7 @@ body {
     transition: background 300ms ease;
 
     &:hover {
-        background-color: hwb(271 3% 74%);
+        background-color: hwb(212 9% 45%);
     }
 }
 

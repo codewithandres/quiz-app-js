@@ -8,3 +8,9 @@ export interface Category {
     category: string;
     questions: Question[];
 }
+
+export interface AnswerHandlingPros {
+    $li: HTMLLIElement;
+    answerIndex: number;
+    correctAnswer: number;
+}

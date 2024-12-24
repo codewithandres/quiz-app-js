@@ -1,4 +1,5 @@
-import { Category, Question } from '../interface';
+import { log } from 'console';
+import { AnswerHandlingPros, Category, Question } from '../interface';
 import { questions } from '../models/questions';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,24 +18,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let QUIZ_CATEGORY = 'mathematics';
     let currentQuestion: Question | Category | null;
+    const questionIndexHistory: number[] = [];
 
-    // Fetch a random question from based on the selected category
+    // Obtener una pregunta aleatoria basada en la categoría seleccionada
     const getRandomQuestion = (): Question => {
         const categoryQuestions =
             questions.find(
-                cate =>
-                    cate.category.toLocaleLowerCase() ===
-                    QUIZ_CATEGORY.toLowerCase()
-            )?.questions || [];
+                ({ category }) =>
+                    category.toLowerCase() === QUIZ_CATEGORY.toLowerCase()
+            )?.questions ?? [];
 
-        const randomQuestion =
-            categoryQuestions[
-                Math.floor(Math.random() * categoryQuestions?.length)
-            ];
+        // Filtrar las consultas ya realizadas según la categoría seleccionada
+        const aviableQuestion = categoryQuestions.filter(
+            (_, index) => !questionIndexHistory.includes(index)
+        );
+
+        const randomQuestion = categoryQuestions.at(
+            Math.floor(Math.random() * categoryQuestions.length)
+        )!;
+
+        questionIndexHistory.push(categoryQuestions.indexOf(randomQuestion));
 
         return randomQuestion;
     };
-    // highligth the correct answer option
+    // Resalte la opción de respuesta correcta
     const highligthCorrectAnswer = (correctAnswer: number) => {
         const correcOption =
             $domElement.answerOptions.querySelectorAll<HTMLLIElement>(
@@ -49,14 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
         correcOption.insertAdjacentHTML('beforeend', iconHtml);
     };
 
-    // handle the user's answer selection
-    const handleAnswer = (
-        option: HTMLLIElement,
-        answerIndex: number,
-        correctAnswer: number
-    ) => {
+    // Manejar la selección de respuestas del usuario
+    const handleAnswer = ({
+        $li,
+        answerIndex,
+        correctAnswer,
+    }: AnswerHandlingPros) => {
         const isCorrect = correctAnswer === answerIndex;
-        option.classList.add(isCorrect ? 'correct' : 'incorrect');
+        $li.classList.add(isCorrect ? 'correct' : 'incorrect');
 
         !isCorrect ? highligthCorrectAnswer(correctAnswer) : null;
 
@@ -66,15 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
                   </span>`;
 
         // inser icon based on crrect answer
-        option.insertAdjacentHTML('beforeend', iconHtml);
+        $li.insertAdjacentHTML('beforeend', iconHtml);
 
         // Disable all answer option after one option is selected
         $domElement.answerOptions
             .querySelectorAll<HTMLLIElement>('.answer-option')
             .forEach(Option => (Option.style.pointerEvents = 'none'));
+
+        $domElement.nextQuestionButton.style.visibility = 'visible';
     };
 
-    // Render the current question and its options  in the quiz
+    // Representar la pregunta actual y sus opciones en el cuestionario
     const renderQuestion = () => {
         currentQuestion = getRandomQuestion();
 
@@ -82,18 +91,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!currentQuestion) return;
 
-        // update UI
+        // Actualizar la interfaz de usuario
         $domElement.quizText.textContent = currentQuestion.question;
         $domElement.answerOptions.innerHTML = '';
+        $domElement.nextQuestionButton.style.visibility = 'hidden';
 
-        // Create option <li> Element and append them, and add click event listener
-        options.forEach((Option, index) => {
+        // Cree el elemento <li> y añádalo, y agregue un detector de eventos de clic
+        options.forEach((Option, answerIndex) => {
             const $li = document.createElement('li');
 
             $li.classList.add('answer-option');
             $li.textContent = Option;
             $li.addEventListener('click', () =>
-                handleAnswer($li, index, correctAnswer)
+                handleAnswer({ $li, answerIndex, correctAnswer })
             );
 
             $domElement.answerOptions.appendChild($li);

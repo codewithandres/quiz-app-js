@@ -1,4 +1,3 @@
-import { log } from 'console';
 import { AnswerHandlingPros, Category, Question } from '../interface';
 import { questions } from '../models/questions';
 
@@ -14,10 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
         nextQuestionButton: document.querySelector(
             '.next-question-button'
         ) as HTMLButtonElement,
+        questionStatus: document.querySelector(
+            '.question-status'
+        ) as HTMLParagraphElement,
     };
 
-    let QUIZ_CATEGORY = 'mathematics';
+    let QUIZ_CATEGORY: string = 'mathematics';
     let currentQuestion: Question | Category | null;
+    let numberOfQuestions: number = 3;
     const questionIndexHistory: number[] = [];
 
     // Obtener una pregunta aleatoria basada en la categoría seleccionada
@@ -28,8 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     category.toLowerCase() === QUIZ_CATEGORY.toLowerCase()
             )?.questions ?? [];
 
+        if (
+            questionIndexHistory.length >=
+            Math.min(categoryQuestions.length, numberOfQuestions)
+        ) {
+            throw new Error('Quiz complete');
+        }
+
         // Filtrar las consultas ya realizadas según la categoría seleccionada
-        const aviableQuestion = categoryQuestions.filter(
+        const availableQuestions = categoryQuestions.filter(
             (_, index) => !questionIndexHistory.includes(index)
         );
 
@@ -95,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $domElement.quizText.textContent = currentQuestion.question;
         $domElement.answerOptions.innerHTML = '';
         $domElement.nextQuestionButton.style.visibility = 'hidden';
+        $domElement.questionStatus.innerHTML = `<b> ${questionIndexHistory.length} </b> Of <b> ${numberOfQuestions} </b>`;
 
         // Cree el elemento <li> y añádalo, y agregue un detector de eventos de clic
         options.forEach((Option, answerIndex) => {

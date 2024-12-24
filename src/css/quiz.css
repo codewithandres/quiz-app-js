@@ -59,7 +59,7 @@
 
     &.correct {
         border-color: hwb(134 72% 12%);
-        background-color: hwb(134 83% 7%);
+        background-color: hwb(133 74% 10%);
         color: hwb(134 8% 66%);
     }
 
@@ -92,7 +92,7 @@
 
 .quiz-footer .next-question-button {
     display: inline-flex;
-    visibility: hidden;
+    visibility: visible;
     gap: 0.5rem;
     align-items: center;
     padding: 9px 17px;

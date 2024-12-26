@@ -1,3 +1,4 @@
+import { time } from 'console';
 import { AnswerHandlingPros, Category, Question } from '../interface';
 import { questions } from '../models/questions';
 
@@ -16,12 +17,46 @@ document.addEventListener('DOMContentLoaded', () => {
         questionStatus: document.querySelector(
             '.question-status'
         ) as HTMLParagraphElement,
+        timerDisplay: document.querySelector(
+            '.timer-duration'
+        ) as HTMLParagraphElement,
+    };
+    const QUIZ_TIME_LIMIT: number = 5,
+        questionIndexHistory: number[] = [];
+
+    let QUIZ_CATEGORY: string = 'mathematics',
+        currentQuestion: Question | Category | null,
+        numberOfQuestions: number = 3,
+        currentTime = QUIZ_TIME_LIMIT,
+        timer: NodeJS.Timeout;
+
+    // clear and reset the timer
+    const resetTimer = () => {
+        clearInterval(timer);
+        currentTime = QUIZ_TIME_LIMIT;
     };
 
-    let QUIZ_CATEGORY: string = 'mathematics';
-    let currentQuestion: Question | Category | null;
-    let numberOfQuestions: number = 3;
-    const questionIndexHistory: number[] = [];
+    // Initialize and start the timer for the current question
+    const starTime = () => {
+        timer = setInterval(() => {
+            currentTime--;
+
+            $domElement.timerDisplay.textContent = ` ${currentTime}s `;
+
+            if (currentTime <= 0) {
+                clearInterval(timer);
+
+                const { correctAnswer } = getRandomQuestion();
+
+                highligthCorrectAnswer(correctAnswer);
+
+                $domElement.nextQuestionButton.style.visibility = 'visible';
+                $domElement.answerOptions
+                    .querySelectorAll<HTMLLIElement>('.answer-option')
+                    .forEach(Option => (Option.style.pointerEvents = ' none '));
+            }
+        }, 1000);
+    };
 
     // Obtener una pregunta aleatoria basada en la categoría seleccionada
     const getRandomQuestion = (): Question => {
@@ -43,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             (_, index) => !questionIndexHistory.includes(index)
         );
 
-        const randomQuestion = categoryQuestions.at(
+        const randomQuestion = availableQuestions.at(
             Math.floor(Math.random() * categoryQuestions.length)
         )!;
 
@@ -72,6 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         answerIndex,
         correctAnswer,
     }: AnswerHandlingPros) => {
+        clearInterval(timer);
+
         const isCorrect = correctAnswer === answerIndex;
         $li.classList.add(isCorrect ? 'correct' : 'incorrect');
 
@@ -100,6 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const { options, correctAnswer } = currentQuestion;
 
         if (!currentQuestion) return;
+
+        resetTimer();
+        starTime();
 
         // Actualizar la interfaz de usuario
         $domElement.quizText.textContent = currentQuestion.question;

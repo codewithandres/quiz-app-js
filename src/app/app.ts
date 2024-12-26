@@ -20,6 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
         timerDisplay: document.querySelector(
             '.timer-duration'
         ) as HTMLParagraphElement,
+        resultContainer: document.querySelector(
+            '.result-container'
+        ) as HTMLElement,
+        quizContainer: document.querySelector('.quiz-container') as HTMLElement,
+        resultMessage: document.querySelector(
+            '.result-mesaage'
+        ) as HTMLParagraphElement,
+        restartQuizButton: document.querySelector(
+            '.restart-quiz-button'
+        ) as HTMLButtonElement,
     };
     const QUIZ_TIME_LIMIT: number = 5,
         questionIndexHistory: number[] = [];
@@ -28,7 +38,22 @@ document.addEventListener('DOMContentLoaded', () => {
         currentQuestion: Question | Category | null,
         numberOfQuestions: number = 3,
         currentTime = QUIZ_TIME_LIMIT,
-        timer: NodeJS.Timeout;
+        timer: NodeJS.Timeout,
+        correctAnswerCount = 0;
+
+    // Disable the quiz result and hide the quiz container
+    const showQuizResult = () => {
+        const { quizContainer, resultContainer, resultMessage } = $domElement;
+
+        quizContainer.style.display = ' none ';
+        resultContainer.style.display = ' block ';
+
+        const $resultText = ` You answer 
+            <b>${correctAnswerCount}</b> out of <b>${numberOfQuestions}</b> 
+        question correctly great effort! `;
+
+        resultMessage.innerHTML = $resultText;
+    };
 
     // clear and reset the timer
     const resetTimer = () => {
@@ -70,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             questionIndexHistory.length >=
             Math.min(categoryQuestions.length, numberOfQuestions)
         ) {
-            throw new Error('Quiz complete');
+            return showQuizResult();
         }
 
         // Filtrar las consultas ya realizadas según la categoría seleccionada
@@ -112,7 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const isCorrect = correctAnswer === answerIndex;
         $li.classList.add(isCorrect ? 'correct' : 'incorrect');
 
-        !isCorrect ? highligthCorrectAnswer(correctAnswer) : null;
+        !isCorrect
+            ? highligthCorrectAnswer(correctAnswer)
+            : correctAnswerCount++;
 
         const iconHtml = `
                  <span class="material-symbols-outlined">

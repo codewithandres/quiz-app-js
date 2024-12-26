@@ -1,7 +1,5 @@
-import { time } from 'console';
-import { AnswerHandlingPros, Category, Question } from '../interface';
+import type { AnswerHandlingPros, Category, Question } from '../interface';
 import { questions } from '../models/questions';
-
 document.addEventListener('DOMContentLoaded', () => {
     // DOM
     const $domElement = {
@@ -51,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         correctAnswerCount = 0;
 
     // Disable the quiz result and hide the quiz container
-    const showQuizResult = () => {
+    const showQuizResult = (): void => {
         const { quizContainer, resultContainer, resultMessage } = $domElement;
 
         quizContainer.style.display = ' none ';
@@ -94,45 +92,55 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Obtener una pregunta aleatoria basada en la categoría seleccionada
     const getRandomQuestion = (): Question => {
+        // Get questions for the selected category once
         const categoryQuestions =
             questions.find(
                 ({ category }) =>
                     category.toLowerCase() === QUIZ_CATEGORY.toLowerCase()
             )?.questions ?? [];
 
-        if (
-            questionIndexHistory.length >=
-            Math.min(categoryQuestions.length, numberOfQuestions)
-        ) {
-            return showQuizResult();
-        }
-
-        // Filtrar las consultas ya realizadas según la categoría seleccionada
-        const availableQuestions = categoryQuestions.filter(
-            (_, index) => !questionIndexHistory.includes(index)
+        const maxQuestions = Math.min(
+            categoryQuestions.length,
+            numberOfQuestions
         );
 
-        const randomQuestion = availableQuestions.at(
-            Math.floor(Math.random() * categoryQuestions.length)
-        )!;
+        // Check if we've reached the end of available questions
+        if (questionIndexHistory.length >= maxQuestions) {
+            showQuizResult();
+            return {} as Question; // Return empty Question object to satisfy return type
+        }
 
-        questionIndexHistory.push(categoryQuestions.indexOf(randomQuestion));
+        // Get available question indices instead of filtering the array
+        const availableIndices = Array.from(
+            { length: categoryQuestions.length },
+            (_, i) => i
+        ).filter(index => !questionIndexHistory.includes(index));
 
-        return randomQuestion;
+        // Select a random index from available indices
+        const randomIndex =
+            availableIndices[
+                Math.floor(Math.random() * availableIndices.length)
+            ];
+
+        questionIndexHistory.push(randomIndex);
+        return categoryQuestions[randomIndex];
     };
+
     // Resalte la opción de respuesta correcta
     const highligthCorrectAnswer = (correctAnswer: number) => {
-        const correcOption =
-            $domElement.answerOptions.querySelectorAll<HTMLLIElement>(
-                '.answer-option'
-            )[correctAnswer];
+        const correctOption = document.querySelector<HTMLLIElement>(
+            `.answer-option:nth-child(${correctAnswer + 1})`
+        );
 
-        correcOption.classList.add('correct');
+        if (!correctOption) return;
 
-        const iconHtml = `<span class="material-symbols-outlined"> task_alt </span>`;
+        correctOption.classList.add('correct');
 
-        // inser icon based on crrect answer
-        correcOption.insertAdjacentHTML('beforeend', iconHtml);
+        const icon = document.createElement('span');
+        icon.className = 'material-symbols-outlined';
+        icon.textContent = 'task_alt';
+
+        correctOption.appendChild(icon);
     };
 
     // Manejar la selección de respuestas del usuario

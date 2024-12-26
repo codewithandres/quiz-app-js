@@ -25,7 +25,7 @@ body {
     background-color: hwb(0 99% 0%);
 }
 .config-container {
-    display: none;
+    display: block;
     width: 415px;
     padding: 1.5rem;
     text-align: center;

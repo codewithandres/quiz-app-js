@@ -28,8 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
             '.result-mesaage'
         ) as HTMLParagraphElement,
         restartQuizButton: document.querySelector(
-            '.restart-quiz-button'
+            '.try-again-button'
         ) as HTMLButtonElement,
+        configContainer: document.querySelector(
+            '.config-container'
+        ) as HTMLDivElement,
+        startQuizButton: document.querySelector(
+            '.star-quizt-button'
+        ) as HTMLButtonElement,
+        category_question_option: document.querySelectorAll(
+            ':where(.category-option, .question-option)'
+        ) as NodeListOf<HTMLButtonElement>,
     };
     const QUIZ_TIME_LIMIT: number = 5,
         questionIndexHistory: number[] = [];
@@ -188,7 +197,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    renderQuestion();
+    const startQuiz = () => {
+        const { configContainer, quizContainer } = $domElement;
+
+        configContainer.style.display = ' none ';
+        quizContainer.style.display = ' block ';
+
+        const category_active = document.querySelector<HTMLButtonElement>(
+            '.category-option.active'
+        );
+
+        const question_active = document.querySelector<HTMLButtonElement>(
+            '.question-option.active'
+        );
+        QUIZ_CATEGORY = category_active?.dataset.category!;
+
+        numberOfQuestions = +question_active?.dataset.nquestion!;
+
+        console.log(QUIZ_CATEGORY, numberOfQuestions);
+
+        renderQuestion();
+    };
+
+    //  reset the quiz and return to the configuration container
+    const resetQuiz = () => {
+        const { configContainer, resultContainer } = $domElement;
+
+        resetTimer();
+        correctAnswerCount = 0;
+        questionIndexHistory.length = 0;
+
+        configContainer.style.display = ' block ';
+        resultContainer.style.display = ' none ';
+    };
+
+    $domElement.category_question_option.forEach(Option => {
+        Option.addEventListener('click', () => {
+            Option.parentNode
+                ?.querySelector('.active')
+                ?.classList.remove('active');
+            Option.classList.add('active');
+        });
+    });
 
     $domElement.nextQuestionButton.addEventListener('click', renderQuestion);
+    $domElement.restartQuizButton.addEventListener('click', resetQuiz);
+    $domElement.startQuizButton.addEventListener('click', startQuiz);
 });

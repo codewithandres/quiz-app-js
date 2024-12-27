@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         category_question_option: document.querySelectorAll(
             ':where(.category-option, .question-option)'
         ) as NodeListOf<HTMLButtonElement>,
+        quizTimer: document.querySelector('.quiz-timer') as HTMLDivElement,
     };
     const QUIZ_TIME_LIMIT: number = 5,
         questionIndexHistory: number[] = [];
@@ -80,9 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const { correctAnswer } = getRandomQuestion();
 
-                highligthCorrectAnswer(correctAnswer);
+                highlightCorrectAnswer(correctAnswer);
 
                 $domElement.nextQuestionButton.style.visibility = 'visible';
+                $domElement.quizTimer.style.backgroundColor = ' #c31402 ';
+
                 $domElement.answerOptions
                     .querySelectorAll<HTMLLIElement>('.answer-option')
                     .forEach(Option => (Option.style.pointerEvents = ' none '));
@@ -127,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Resalte la opción de respuesta correcta
-    const highligthCorrectAnswer = (correctAnswer: number) => {
+    const highlightCorrectAnswer = (correctAnswer: number) => {
         const correctOption = document.querySelector<HTMLLIElement>(
             `.answer-option:nth-child(${correctAnswer + 1})`
         );
@@ -155,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $li.classList.add(isCorrect ? 'correct' : 'incorrect');
 
         !isCorrect
-            ? highligthCorrectAnswer(correctAnswer)
+            ? highlightCorrectAnswer(correctAnswer)
             : correctAnswerCount++;
 
         const iconHtml = `
@@ -175,12 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Representar la pregunta actual y sus opciones en el cuestionario
-    const renderQuestion = () => {
+    const renderQuestion = (): void => {
         currentQuestion = getRandomQuestion();
 
-        const { options, correctAnswer } = currentQuestion;
-
         if (!currentQuestion) return;
+
+        const { options, correctAnswer } = currentQuestion;
 
         resetTimer();
         starTime();
@@ -189,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $domElement.quizText.textContent = currentQuestion.question;
         $domElement.answerOptions.innerHTML = '';
         $domElement.nextQuestionButton.style.visibility = 'hidden';
+        $domElement.quizTimer.style.backgroundColor = ' hwb(245 19% 76%) ';
         $domElement.questionStatus.innerHTML = `<b> ${questionIndexHistory.length} </b> Of <b> ${numberOfQuestions} </b>`;
 
         // Cree el elemento <li> y añádalo, y agregue un detector de eventos de clic

@@ -1,0 +1,25 @@
+@media screen and (max-width: 600px) {
+    :where(.config-container, .quiz-container, .quiz-content) {
+        padding: 20px;
+    }
+    .quiz-content .answer-option {
+        padding: 12px 10px 12px 14px;
+    }
+    .config-container .questions-options {
+        padding: 0 15px;
+    }
+    .quiz-container .quiz-header,
+    .quiz-container .quiz-footer {
+        padding: 13px 20px;
+    }
+    .quiz-header .quiz-title,
+    .quiz-content .queztion-text {
+        font-size: 1.3rem;
+    }
+    .result-container {
+        padding: 40px 20px;
+    }
+    .result-container .resul-title {
+        font-size: 1.4rem;
+    }
+}

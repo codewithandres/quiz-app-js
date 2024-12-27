@@ -24,6 +24,7 @@
     background-color: hwb(245 19% 76%);
     color: hwb(0 100% 0%);
     font-weight: 300;
+    transition: 300ms ease;
 
     & span {
         font-size: 1.3rem;

@@ -9,8 +9,9 @@
     box-shadow: 0 1px 10px hwb(0 0% 100% / 0.137);
 }
 .queztion-text {
-    width: 480px;
+    width: 100%;
     font-size: 1.3rem;
+    text-wrap: pretty;
     font-weight: 400;
 }
 .quiz-header .quiz-timer {
@@ -43,18 +44,19 @@
 }
 .quiz-container .answer-option {
     padding: 13px 16px;
-    background-color: hwb(249 95% 0%);
-    border: 1px solid hwb(246 67% 0%);
+    background-color: hwb(250 9% 89%);
+    border: 1px solid hwb(246 67% 0% / 0.486);
     border-radius: 0.5rem;
     font-weight: 400;
     cursor: pointer;
-    transition: 300ms ease;
+    transition: 300ms cubic-bezier(0.19, 1, 0.22, 1);
 
     display: flex;
     justify-content: space-between;
 
     &:hover {
         background-color: hwb(248 84% 1%);
+        color: hwb(250 9% 89%);
     }
 
     &.correct {

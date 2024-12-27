@@ -1,5 +1,7 @@
 import type { AnswerHandlingPros, Category, Question } from '../interface';
 import { questions } from '../models/questions';
+import 'animate.css';
+
 document.addEventListener('DOMContentLoaded', () => {
     // DOM
     const $domElement = {
@@ -39,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ) as NodeListOf<HTMLButtonElement>,
         quizTimer: document.querySelector('.quiz-timer') as HTMLDivElement,
     };
+
     const QUIZ_TIME_LIMIT: number = 5,
         questionIndexHistory: number[] = [];
 
@@ -55,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         quizContainer.style.display = ' none ';
         resultContainer.style.display = ' block ';
+        resultContainer.classList.add('animate__rubberBand');
 
         const $resultText = ` You answer 
             <b>${correctAnswerCount}</b> out of <b>${numberOfQuestions}</b> 
@@ -155,7 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(timer);
 
         const isCorrect = correctAnswer === answerIndex;
+
         $li.classList.add(isCorrect ? 'correct' : 'incorrect');
+        $li.classList.add(isCorrect ? 'animate__pulse' : 'animate__headShake');
 
         !isCorrect
             ? highlightCorrectAnswer(correctAnswer)
@@ -189,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         starTime();
 
         // Actualizar la interfaz de usuario
-        $domElement.quizText.textContent = currentQuestion.question;
+        $domElement.quizText.innerHTML = `<p> ${currentQuestion.question} </p>`;
         $domElement.answerOptions.innerHTML = '';
         $domElement.nextQuestionButton.style.visibility = 'hidden';
         $domElement.quizTimer.style.backgroundColor = ' hwb(245 19% 76%) ';
@@ -199,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         options.forEach((Option, answerIndex) => {
             const $li = document.createElement('li');
 
-            $li.classList.add('answer-option');
+            $li.classList.add('answer-option', 'animate__animated');
             $li.textContent = Option;
             $li.addEventListener('click', () =>
                 handleAnswer({ $li, answerIndex, correctAnswer })
@@ -214,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         configContainer.style.display = ' none ';
         quizContainer.style.display = ' block ';
+        quizContainer.classList.add('animate__bounceIn');
 
         const category_active = document.querySelector<HTMLButtonElement>(
             '.category-option.active'

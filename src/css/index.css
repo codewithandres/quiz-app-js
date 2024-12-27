@@ -15,14 +15,16 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100dvh;
-    background-color: hwb(271 2% 53%);
+    background-color: hwb(264 2% 96%);
     padding: 1rem;
 }
 :where(.config-container, .quiz-container, .result-container) {
     display: none;
     border-radius: 0.5rem;
-    box-shadow: 0 10px 25px hwb(0 17% 83% / 0.226);
-    background-color: hwb(0 99% 0%);
+    box-shadow: rgba(255, 255, 255, 0.02) 0px 1px 3px 0px,
+        rgba(175, 202, 230, 0.15) 0px 0px 0px 1px;
+    background-color: hwb(265 5% 91%);
+    color: hwb(212 78% 11%);
 }
 .config-container {
     display: block;
@@ -45,6 +47,7 @@ body {
     display: grid;
     gap: 15px;
     grid-template-columns: repeat(2, 2fr);
+    color: hwb(212 78% 11%);
 }
 .config-option .questions-options {
     display: flex;
@@ -70,12 +73,14 @@ body {
     padding: 0.6rem;
     font-size: 0.938rem;
     font-weight: 500;
-    background-color: hwb(0 99% 0%);
-    border: 1px solid hwb(271 2% 53%);
+    background-color: transparent;
+    border: 1px solid hwb(271 2% 53% / 0.582);
     border-radius: 0.5rem;
     cursor: pointer;
+    color: hwb(212 78% 11%);
 
     &:hover {
+        color: hwb(271 2% 53% / 0.582);
         background-color: hwb(248 84% 1%);
     }
 }

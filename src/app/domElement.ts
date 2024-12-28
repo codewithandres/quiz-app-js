@@ -1,4 +1,4 @@
-interface NonNullableHTMLElements {
+interface HTMLElements {
     quizText: NonNullable<HTMLHeadingElement>;
     answerOptions: NonNullable<HTMLUListElement>;
     nextQuestionButton: NonNullable<HTMLButtonElement>;
@@ -14,7 +14,7 @@ interface NonNullableHTMLElements {
     quizTimer: NonNullable<HTMLDivElement>;
 }
 
-export const $domElement: NonNullableHTMLElements = {
+export const $domElement: HTMLElements = {
     quizText: document.querySelector('.queztion-text') as HTMLHeadingElement,
     answerOptions: document.querySelector(
         '.answer-options'

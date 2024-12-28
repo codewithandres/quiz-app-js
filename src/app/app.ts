@@ -11,7 +11,7 @@ let QUIZ_CATEGORY: string = 'mathematics',
     currentQuestion: Question | Category | null,
     numberOfQuestions: number = 3,
     currentTime = QUIZ_TIME_LIMIT,
-    timer: NodeJS.Timeout,
+    timer: any,
     correctAnswerCount = 0;
 
 // Disable the quiz result and hide the quiz container

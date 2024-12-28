@@ -30,13 +30,13 @@ const showQuizResult = (): void => {
 };
 
 // clear and reset the timer
-const resetTimer = () => {
+const resetTimer = (): void => {
     clearInterval(timer);
     currentTime = QUIZ_TIME_LIMIT;
 };
 
 // Initialize and start the timer for the current question
-const starTime = () => {
+const starTime = (): void => {
     timer = setInterval(() => {
         currentTime--;
 
@@ -91,7 +91,7 @@ const getRandomQuestion = (): Question => {
 };
 
 // Resalte la opción de respuesta correcta
-const highlightCorrectAnswer = (correctAnswer: number) => {
+const highlightCorrectAnswer = (correctAnswer: number): void => {
     const correctOption = document.querySelector<HTMLLIElement>(
         `.answer-option:nth-child(${correctAnswer + 1})`
     );
@@ -112,7 +112,7 @@ const handleAnswer = ({
     $li,
     answerIndex,
     correctAnswer,
-}: AnswerHandlingPros) => {
+}: AnswerHandlingPros): void => {
     clearInterval(timer);
 
     const isCorrect = correctAnswer === answerIndex;
@@ -170,7 +170,7 @@ const renderQuestion = (): void => {
     });
 };
 
-const startQuiz = () => {
+const startQuiz = (): void => {
     const { configContainer, quizContainer } = $domElement;
 
     configContainer.style.display = ' none ';
@@ -194,7 +194,7 @@ const startQuiz = () => {
 };
 
 //  reset the quiz and return to the configuration container
-const resetQuiz = () => {
+const resetQuiz = (): void => {
     const { configContainer, resultContainer } = $domElement;
 
     resetTimer();

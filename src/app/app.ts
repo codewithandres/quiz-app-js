@@ -1,46 +1,10 @@
 import type { AnswerHandlingPros, Category, Question } from '../interface';
 import { questions } from '../models/questions';
 import 'animate.css';
+import { $domElement } from './domElement';
 
 document.addEventListener('DOMContentLoaded', () => {
     // DOM
-    const $domElement = {
-        quizText: document.querySelector(
-            '.queztion-text'
-        ) as HTMLHeadingElement,
-        answerOptions: document.querySelector(
-            '.answer-options'
-        ) as HTMLUListElement,
-        nextQuestionButton: document.querySelector(
-            '.next-question-button'
-        ) as HTMLButtonElement,
-        questionStatus: document.querySelector(
-            '.question-status'
-        ) as HTMLParagraphElement,
-        timerDisplay: document.querySelector(
-            '.timer-duration'
-        ) as HTMLParagraphElement,
-        resultContainer: document.querySelector(
-            '.result-container'
-        ) as HTMLElement,
-        quizContainer: document.querySelector('.quiz-container') as HTMLElement,
-        resultMessage: document.querySelector(
-            '.result-mesaage'
-        ) as HTMLParagraphElement,
-        restartQuizButton: document.querySelector(
-            '.try-again-button'
-        ) as HTMLButtonElement,
-        configContainer: document.querySelector(
-            '.config-container'
-        ) as HTMLDivElement,
-        startQuizButton: document.querySelector(
-            '.star-quizt-button'
-        ) as HTMLButtonElement,
-        category_question_option: document.querySelectorAll(
-            ':where(.category-option, .question-option)'
-        ) as NodeListOf<HTMLButtonElement>,
-        quizTimer: document.querySelector('.quiz-timer') as HTMLDivElement,
-    };
 
     const QUIZ_TIME_LIMIT: number = 5,
         questionIndexHistory: number[] = [];

@@ -21,10 +21,12 @@ Key features include:
 ├── package.json
 ├── src
 │   ├── app
-│   │   └── app.ts
+│   │   ├── app.ts
+│   │   └── domElement.ts
 │   ├── css
 │   │   ├── index.css
 │   │   ├── quiz.css
+│   │   ├── responsive.css
 │   │   └── resul-quiz.css
 │   ├── index.ts
 │   ├── interface
@@ -141,3 +143,11 @@ The quiz application follows a straightforward data flow:
 ```
 
 Note: The application uses a timer for each question, automatically progressing if the time limit is reached.
+
+## Dependencies
+
+This project uses the following main dependencies:
+
+- TypeScript: A superset of JavaScript that adds static typing
+- Vite: A fast and lightweight development server and build tool
+- animate.css: A library for adding CSS animations to elements

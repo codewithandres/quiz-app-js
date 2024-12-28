@@ -4,11 +4,13 @@ import type { AnswerHandlingPros, Category, Question } from '../interface';
 import { questions } from '../models/questions';
 import { $domElement } from './domElement';
 
-const QUIZ_TIME_LIMIT: number = 5,
+type currentQuestionType = Question | Category | null;
+
+const QUIZ_TIME_LIMIT: number = 15,
     questionIndexHistory: number[] = [];
 
 let QUIZ_CATEGORY: string = 'mathematics',
-    currentQuestion: Question | Category | null,
+    currentQuestion: currentQuestionType,
     numberOfQuestions: number = 3,
     currentTime = QUIZ_TIME_LIMIT,
     timer: ReturnType<typeof setInterval>,
